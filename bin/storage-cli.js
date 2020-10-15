@@ -136,7 +136,7 @@ var storage = new StandaloneStorage(config.Storage, function(err) {
 		case 'install':
 			// setup new master server
 			var setup = require('../conf/setup.json');
-
+			
 			// make sure this is only run once
 			storage.get( 'global/users', function(err) {
 				if (!err) {
@@ -216,8 +216,7 @@ var storage = new StandaloneStorage(config.Storage, function(err) {
 				print("\n");
 				
 				storage.shutdown( function() { process.exit(0); } );
-			});
-
+			} );
 		break;
 		
 		case 'get':
@@ -609,16 +608,3 @@ function import_data(file) {
 		else queue.drain = complete;
 	}); // rl close
 };
-
-var _uniqueIDCounter = 0;
-function generateUniqueID(prefix) {
-    this._uniqueIDCounter++;
-
-    if (this._uniqueIDCounter >= Math.pow(36, 2)) this._uniqueIDCounter = 0;
-
-    return [
-        prefix,
-        Tools.zeroPad( (new Date()).getTime().toString(36), 8 ),
-        Tools.zeroPad( this._uniqueIDCounter.toString(36), 2 )
-    ].join('');
-}
