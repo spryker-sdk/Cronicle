@@ -136,7 +136,56 @@ var storage = new StandaloneStorage(config.Storage, function(err) {
 		case 'install':
 			// setup new master server
 			var setup = require('../conf/setup.json');
-			
+			var events = require('../conf/samples.json');
+
+			// spawn worker process
+
+//            const events = cp.spawn(
+//                'vendor/bin/console', ['scheduler:export']
+//            );
+//
+//            events.stdout.on('data', (data) => {
+//              console.log(`stdout: ${data}`);
+
+            var categories = {};
+            for (var key in events) {
+                let cat = {
+                    'max_children': 0,
+                    'enabled': 1
+                };
+                let event = JSON.parse(JSON.stringify(events[key]));
+                let categoryTitle = event.title.split('__')[0].toString().replace(/\W+/g, '');
+
+                if (categories.hasOwnProperty(categoryTitle)) {
+                    cat.id = event.category = categories[categoryTitle];
+                    cat.title = categoryTitle;
+                }
+
+                if (event.category === null) {
+                    let categoryId = generateUniqueID(categoryTitle);
+                    cat.title = categoryTitle;
+                    cat.id = categories[categoryTitle] = event.category = categoryId;
+                }
+
+                storage.listFind( 'global/categories', { id: cat.id }, function(err, categoryById) {
+                    if (categoryById) {
+                        print('category', "The category with the given ID already exists: " + cat.id);
+                    }
+
+                    storage.listUnshift( 'global/categories', cat, function(err) {
+                        if (err) {
+                            print('category', "Failed to create category: " + err);
+                        }
+                    });
+                });
+
+                storage.listUnshift('global/schedule', event, function(err) {
+                    if (err) {
+                        print('schedule', "Failed to create scheduler: " + err);
+                    }
+                });
+            }
+
 			// make sure this is only run once
 			storage.get( 'global/users', function(err) {
 				if (!err) {
@@ -216,7 +265,8 @@ var storage = new StandaloneStorage(config.Storage, function(err) {
 				print("\n");
 				
 				storage.shutdown( function() { process.exit(0); } );
-			} );
+			});
+
 		break;
 		
 		case 'get':
@@ -608,3 +658,16 @@ function import_data(file) {
 		else queue.drain = complete;
 	}); // rl close
 };
+
+var _uniqueIDCounter = 0;
+function generateUniqueID(prefix) {
+    this._uniqueIDCounter++;
+
+    if (this._uniqueIDCounter >= Math.pow(36, 2)) this._uniqueIDCounter = 0;
+
+    return [
+        prefix,
+        Tools.zeroPad( (new Date()).getTime().toString(36), 8 ),
+        Tools.zeroPad( this._uniqueIDCounter.toString(36), 2 )
+    ].join('');
+}

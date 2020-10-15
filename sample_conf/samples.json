@@ -1,0 +1,314 @@
+[
+  {
+    "title": "DE__check-product-validity",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console product:check-validity\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [
+        6
+      ],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__check-product-label-validity",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console product-label:validity\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [
+        6
+      ],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__update-product-label-relations",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console product-label:relations:update -vvv --no-touch\\n"
+    },
+    "timing": {
+      "minutes": [],
+      "hours": [],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__check-oms-conditions",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console oms:check-condition\\n"
+    },
+    "timing": {
+      "minutes": [],
+      "hours": [],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__check-oms-timeouts",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console oms:check-timeout\\n"
+    },
+    "timing": {
+      "minutes": [],
+      "hours": [],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__clear-oms-locks",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console oms:clear-locks\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [
+        6
+      ],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__queue-worker-start",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console queue:worker:start\\n"
+    },
+    "timing": {
+      "minutes": [],
+      "hours": [],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__product-relation-updater",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console product-relation:update -vvv\\n"
+    },
+    "timing": {
+      "minutes": [
+        30
+      ],
+      "hours": [
+        2
+      ],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__event-trigger-timeout",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console event:trigger:timeout -vvv\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__deactivate-discontinued-products",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console deactivate-discontinued-products\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [
+        0
+      ],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__clean-expired-guest-cart",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console quote:delete-expired-guest-quotes\\n"
+    },
+    "timing": {
+      "minutes": [
+        30
+      ],
+      "hours": [
+        1
+      ],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__close-outdated-quote-requests",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console quote-request:close-outdated\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__apply-price-product-schedule",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console price-product-schedule:apply\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [
+        6
+      ],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__check-product-offer-validity",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console product-offer:check-validity\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [
+        6
+      ],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__remove-expired-refresh-tokens",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console oauth:refresh-token:remove-expired\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  },
+  {
+    "title": "DE__order-invoice-send",
+    "enabled": true,
+    "plugin": "shellplug",
+    "category": null,
+    "target": "scheduler.spryker.local",
+    "params": {
+      "script": "#!\/bin\/bash\\n $PHP_BIN vendor\/bin\/console order:invoice:send\\n"
+    },
+    "timing": {
+      "minutes": [
+        0
+      ],
+      "hours": [],
+      "days": [],
+      "months": [],
+      "weekdays": []
+    }
+  }
+]
