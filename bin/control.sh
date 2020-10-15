@@ -59,6 +59,9 @@ do
 
     case $ARG in
     start)
+        if [ -f "$HOMEDIR/conf/hook.js" ]; then
+            node "$HOMEDIR/conf/hook.js before-start"
+        fi
 		if [ $RUNNING -eq 1 ]; then
 		    echo "$ARG: $NAME already running (pid $PID)"
 		    continue
