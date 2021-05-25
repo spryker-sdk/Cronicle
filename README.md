@@ -60,6 +60,7 @@
 		+ [scheduler_startup_grace](#scheduler_startup_grace)
 		+ [universal_web_hook](#universal_web_hook)
 		+ [web_hook_custom_data](#web_hook_custom_data)
+		+ [web_hook_custom_opts](#web_hook_custom_opts)
 		+ [web_hook_text_templates](#web_hook_text_templates)
 		+ [ssl_cert_bypass](#ssl_cert_bypass)
 		+ [job_memory_max](#job_memory_max)
@@ -364,8 +365,8 @@ Set specific mailer options, such as SMTP SSL and authentication, passed directl
 
 ```js
 "mail_options": {
-	"secure", true,
-	"auth": { user: "fsmith", pass: "12345" },
+	"secure": true,
+	"auth": { "user": "fsmith", "pass": "12345" },
 	"connectionTimeout": 10000,
 	"greetingTimeout": 10000,
 	"socketTimeout": 10000
@@ -505,6 +506,19 @@ If you need to include custom JSON data with the web hook HTTP POST, you can do 
 
 In this example `my_custom_key1` and `my_custom_key2` will be merged in with the event data that usually accompanies the web hook post data.  See the [Web Hooks](#event-web-hook) section below for more on the data format.
 
+### web_hook_custom_opts
+
+If you need to customize the low-level properties sent to the Node.js [http.request](https://nodejs.org/api/http.html#http_http_request_options_callback) method for making outbound web hook requests, use the `web_hook_custom_opts` property.  Using this you can set things like a proxy host and port.  Example use:
+
+```js
+"web_hook_custom_opts": {
+	"host": "my-corp-proxy.com",
+	"port": 8080
+}
+```
+
+See the [http.request](https://nodejs.org/api/http.html#http_http_request_options_callback) docs for all the possible properties you can set here.
+
 ### web_hook_text_templates
 
 The web hook JSON POST data includes a `text` property which is a simple summary of the action taking place, which is compatible with [Slack Webhook Integrations](https://api.slack.com/incoming-webhooks).  These text strings are generated based on the action, and use the following templates:
@@ -608,6 +622,14 @@ However, if you are trying to run Cronicle in an environment where WebSockets ar
 ```
 
 However, please only do this if you know exactly what you are doing, and why.
+
+### max_jobs
+
+You can optionally set a global maximum number of concurrent jobs to allow.  This is across all servers and categories, and is designed as an "emergency brake" for runaway events.  The property is called `max_jobs`.  The default is `0` (no limit).  Example:
+
+```js
+"max_jobs": 256
+```
 
 ## Storage Configuration
 
