@@ -142,7 +142,7 @@ var storage = new StandaloneStorage(config.Storage, (err) => {
             setup.setupSchedulerGroup(storage);
 
             importSchedulerData(storage).catch((rej) => {
-                print(rej);
+                print(rej.message);
                 process.exit(1);
             });
 
