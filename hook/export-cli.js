@@ -33,6 +33,9 @@ const exportDataFromCli = (storage, store, currentScheduler) =>
                 rej(errors);
             }
 
+            jobs = jobs.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '');
+            jobs = jobs.replace(/^Store: [a-zA-Z0-9]+ | Environment: [a-zA-Z0-9]+$/g, '');
+
             const schedulerData = JSON.parse(jobs.substring(Math.min(jobs.indexOf('['), jobs.indexOf('{'))));
 
             res(schedulerData);
