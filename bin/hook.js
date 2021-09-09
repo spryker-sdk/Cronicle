@@ -148,6 +148,9 @@ var storage = new StandaloneStorage(config.Storage, (err) => {
                 password: "secret"
             };
             request.json( config.base_app_url + '/api/user/login', params, function(err, resp, data) {
+                console.log(data);
+                console.log(resp);
+                console.log(err);
                 let session_id = data.session_id
 
                 if (err) {
