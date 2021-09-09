@@ -5,6 +5,7 @@ const os = require('os');
 const Args = require('pixl-args');
 const Tools = require('pixl-tools');
 const StandaloneStorage = require('pixl-server-storage/standalone');
+const Request = require('pixl-request');
 
 const setup = require('./../hook/setup');
 const exportCli = require('./../hook/export-cli');
@@ -140,6 +141,31 @@ var storage = new StandaloneStorage(config.Storage, (err) => {
             setup.setupDefaultUser(storage);
             setup.setupApiKey(storage);
             setup.setupSchedulerGroup(storage);
+
+            let request = new Request();
+            let params = {
+                username: "spryker",
+                password: "secret"
+            };
+            request.json( config.base_app_url + '/api/user/login', params, function(err, resp, data) {
+                let session_id = data.session_id
+
+                if (err) {
+                    print(`Failed to login: ${err}`);
+                    process.exit(1);
+                }
+
+                let params = {
+                    "session_id": session_id,
+                    "enabled": 0
+                };
+                request.json( config.base_app_url + '/api/app/update_master_state', params, function(err, resp, data) {
+                    if (err) {
+                        print(`Failed to turnoff server: ${err}`);
+                        process.exit(1);
+                    }
+                });
+            } );
 
             importSchedulerData(storage).catch((rej) => {
                 print(rej.message);
